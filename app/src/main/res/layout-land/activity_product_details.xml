@@ -1,0 +1,207 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#712323"
+    tools:context=".ProductDetails">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="729dp"
+            android:layout_height="412dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="0.0">
+
+
+            <ImageView
+                android:id="@+id/ivProductImage"
+                android:layout_width="255dp"
+                android:layout_height="198dp"
+                android:layout_gravity="center"
+                android:layout_marginBottom="12dp"
+                app:layout_constraintBottom_toTopOf="@+id/guideline2"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintVertical_bias="0.119"
+                app:srcCompat="@drawable/pizza_napolitaine" />
+
+            <TextView
+                android:id="@+id/tvProductDetailName"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="left"
+                android:layout_margin="15dp"
+                android:gravity="center"
+                android:text="Sicilian Pizza"
+                android:textColor="#ffff"
+                android:textSize="25sp"
+                android:textStyle="bold"
+                app:layout_constraintBottom_toTopOf="@+id/guideline4"
+                app:layout_constraintEnd_toStartOf="@+id/guideline3"
+                app:layout_constraintHorizontal_bias="0.287"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="@+id/guideline2"
+                app:layout_constraintVertical_bias="0.301" />
+
+            <RatingBar
+                android:id="@+id/ratingBar"
+                style="?android:attr/ratingBarStyleIndicator"
+                android:layout_width="170dp"
+                android:layout_height="53dp"
+                android:layout_gravity="center_horizontal"
+                android:max="5"
+                android:paddingTop="20sp"
+                android:rating="3.5"
+                android:scaleX=".5"
+                android:scaleY=".5"
+                android:transformPivotX="0dp"
+                android:transformPivotY="0dp"
+                app:layout_constraintBottom_toTopOf="@+id/guideline4"
+                app:layout_constraintEnd_toStartOf="@+id/tvProductDescriptionPara2"
+                app:layout_constraintHorizontal_bias="0.0"
+                app:layout_constraintStart_toStartOf="@+id/guideline3"
+                app:layout_constraintTop_toTopOf="@+id/guideline2"
+                app:layout_constraintVertical_bias="0.431" />
+
+            <androidx.constraintlayout.widget.Guideline
+                android:id="@+id/guideline2"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                app:layout_constraintGuide_begin="206dp" />
+
+            <androidx.constraintlayout.widget.Guideline
+                android:id="@+id/guideline3"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                app:layout_constraintGuide_begin="237dp" />
+
+
+            <TextView
+                android:id="@+id/tvProductDescriptionPara1"
+                android:layout_width="331dp"
+                android:layout_height="93dp"
+                android:layout_margin="15dp"
+                android:layout_marginTop="4dp"
+                android:text="Pizza dough (type 0 or 00 tender wheat flour, Natural yeast, sour dough or brewer's yeast, sea salt, water), tomatoes (San Marzano or Pomodorino del Piennolo del Vesuvio), mozzarella (bufala Campana or fior di latte di agerola)"
+                android:textColor="#ffff"
+                android:textSize="15sp"
+                android:textStyle="normal"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toStartOf="@+id/guideline5"
+                app:layout_constraintHorizontal_bias="0.407"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="@+id/guideline4"
+                app:layout_constraintVertical_bias="0.483" />
+
+            <TextView
+                android:id="@+id/tvProductDescriptionPara2"
+                android:layout_width="269dp"
+                android:layout_height="57dp"
+                android:layout_margin="15dp"
+                android:layout_marginEnd="4dp"
+                android:text="Variations:	\n1.Pizza marinara,\n2.Pizza Margherita"
+                android:textColor="#ffff"
+                android:textSize="15sp"
+                android:textStyle="normal"
+                app:layout_constraintBottom_toTopOf="@+id/guideline4"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="@+id/guideline2"
+                app:layout_constraintVertical_bias="0.904" />
+
+            <androidx.constraintlayout.widget.Guideline
+                android:id="@+id/guideline4"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                app:layout_constraintGuide_begin="284dp" />
+
+            <androidx.constraintlayout.widget.Guideline
+                android:id="@+id/guideline5"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                app:layout_constraintGuide_begin="407dp" />
+
+            <androidx.constraintlayout.widget.Guideline
+                android:id="@+id/guideline6"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                app:layout_constraintGuide_begin="20dp" />
+
+            <androidx.cardview.widget.CardView
+                android:id="@+id/cvPriceDetail"
+                android:layout_width="277dp"
+                android:layout_height="128dp"
+                app:cardBackgroundColor="@color/white"
+                app:cardCornerRadius="20dp"
+                app:cardElevation="10dp"
+                app:cardMaxElevation="12dp"
+                app:cardPreventCornerOverlap="true"
+                app:cardUseCompatPadding="true"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.42"
+                app:layout_constraintStart_toStartOf="@+id/guideline5"
+                app:layout_constraintTop_toTopOf="@+id/guideline4"
+                app:layout_constraintVertical_bias="0.0">
+
+                <LinearLayout
+                    android:id="@+id/llPriceDetails"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="center_vertical"
+                    android:orientation="horizontal">
+
+
+                    <TextView
+                        android:id="@+id/tvProductDetailDiscount"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_margin="16dp"
+                        android:layout_marginBottom="0dp"
+                        android:text="Price : $ 15.23"
+                        android:textColor="#000000"
+                        android:textSize="15sp"
+                        android:textStyle="normal" />
+
+                    <TextView
+                        android:id="@+id/tvProductDetailPrice"
+                        android:layout_width="119dp"
+                        android:layout_height="wrap_content"
+                        android:layout_margin="15dp"
+                        android:text="Discount: 3%"
+                        android:textColor="#000000"
+                        android:textSize="15sp"
+                        android:textStyle="italic" />
+
+
+                </LinearLayout>
+
+                <Button
+                    android:id="@+id/btnAddToCart"
+                    android:layout_width="151dp"
+                    android:layout_height="48dp"
+                    android:layout_gravity="bottom"
+                    android:layout_marginLeft="45sp"
+                    android:backgroundTint="#712323"
+                    android:gravity="center_horizontal"
+                    android:text="add to cart"
+                    app:iconTint="#911B1B" />
+
+            </androidx.cardview.widget.CardView>
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</ScrollView>

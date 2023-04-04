@@ -4,4 +4,8 @@
     <string name="view_products">view_products</string>
     <string name="lacucina_pizza">LaCucina Pizza</string>
     <string name="view_orders">view_orders</string>
+    <string name="neapolitan_pizza">Neapolitan Pizza</string>
+    <string name="price_12_55">Price : $ 12.55</string>
+    <string name="discount_5">Discount: 5%</string>
+    <string name="Todo">TODO</string>
 </resources>

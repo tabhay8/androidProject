@@ -16,13 +16,15 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        FirebaseAnalytics.getInstance(this);
+        FirebaseAnalytics firebaseAnalytics = FirebaseAnalytics.getInstance(this);
+        Bundle bundle = new Bundle();
+        bundle.putString(FirebaseAnalytics.Param.ITEM_ID, "MainActivity");
+        firebaseAnalytics.logEvent(FirebaseAnalytics.Event.APP_OPEN, bundle);
+
         Button viewProductsButton = findViewById(R.id.btnViewProducts);
         viewProductsButton.setOnClickListener(v -> {
             Intent intent = new Intent(MainActivity.this, ActivityMenuList.class);
             startActivity(intent);
         });
-
-
     }
 }

@@ -21,10 +21,16 @@ public class MainActivity extends AppCompatActivity {
         bundle.putString(FirebaseAnalytics.Param.ITEM_ID, "MainActivity");
         firebaseAnalytics.logEvent(FirebaseAnalytics.Event.APP_OPEN, bundle);
 
+        startMenuActivity();
+
+    }
+
+    private void startMenuActivity() {
         Button viewProductsButton = findViewById(R.id.btnViewProducts);
         viewProductsButton.setOnClickListener(v -> {
             Intent intent = new Intent(MainActivity.this, ActivityMenuList.class);
             startActivity(intent);
         });
     }
+
 }

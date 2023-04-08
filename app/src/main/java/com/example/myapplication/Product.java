@@ -3,31 +3,31 @@ package com.example.myapplication;
 import java.io.Serializable;
 
 public class Product implements Serializable {
-    private String pizza_name;
-    private double pizza_price;
-    private double pizza_discount;
+    private String pizzaName;
+    private double pizzaPrice;
+    private double pizzaDiscount;
 
-    public String getPizza_name() {
-        return pizza_name;
+    public String getPizzaName() {
+        return pizzaName;
     }
 
-    public void setPizza_name(String pizza_name) {
-        this.pizza_name = pizza_name;
+    public void setPizzaName(String pizzaName) {
+        this.pizzaName = pizzaName;
     }
 
-    public double getPizza_price() {
-        return pizza_price;
+    public double getPizzaPrice() {
+        return pizzaPrice;
     }
 
-    public void setPizza_price(double pizza_price) {
-        this.pizza_price = pizza_price;
+    public void setPizzaPrice(double pizzaPrice) {
+        this.pizzaPrice = pizzaPrice;
     }
 
-    public double getPizza_discount() {
-        return pizza_discount;
+    public double getPizzaDiscount() {
+        return pizzaDiscount;
     }
 
-    public void setPizza_discount(double pizza_discount) {
-        this.pizza_discount = pizza_discount;
+    public void setPizzaDiscount(double pizzaDiscount) {
+        this.pizzaDiscount = pizzaDiscount;
     }
 }

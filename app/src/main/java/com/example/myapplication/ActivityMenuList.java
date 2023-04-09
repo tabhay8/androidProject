@@ -2,9 +2,14 @@ package com.example.myapplication;
 
 import android.os.Bundle;
 import android.util.Log;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.widget.Toast;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -23,13 +28,14 @@ public class ActivityMenuList extends AppCompatActivity {
     private static final String TAG = "ActivityMenuList";
     protected RecyclerView pizzaMenuRecyclerView;
     protected RecyclerView.LayoutManager pizzaMenuRecyclerViewLayoutManager;
-
     protected List<Product> pizzaMenuList;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_menu_list);
+        Toolbar toolbar = (Toolbar) findViewById(R.id.my_toolbar);
+        setSupportActionBar(toolbar);
 
         pizzaMenuRecyclerView = (RecyclerView) findViewById(R.id.pizza_menu_recycler_view);
         pizzaMenuRecyclerViewLayoutManager = new LinearLayoutManager(this);
@@ -67,5 +73,21 @@ public class ActivityMenuList extends AppCompatActivity {
             Log.e(TAG, "Hardcoded pizza list is not equal in length");
         }
 
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        MenuInflater inflater = getMenuInflater();
+        inflater.inflate(R.menu.action_bar_menu, menu);
+        return super.onCreateOptionsMenu(menu);
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
+        if (item.getItemId() == R.id.action_cart) {
+            Log.i(TAG, "Action cart clicked.");
+            return true;
+        }
+        return super.onOptionsItemSelected(item);
     }
 }

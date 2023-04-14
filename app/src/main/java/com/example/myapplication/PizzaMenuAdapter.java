@@ -28,9 +28,22 @@ public class PizzaMenuAdapter extends RecyclerView.Adapter<PizzaMenuAdapter.View
     @Override
     public void onBindViewHolder(@NonNull PizzaMenuAdapter.ViewHolder holder, int position) {
         holder.getTvProductName().setText(pizzaMenuList.get(position).getPizzaName());
-        holder.getTvProductPrice().setText(String.valueOf(pizzaMenuList.get(position).getPizzaPrice()));
-        holder.getTvProductDiscount().setText(String.valueOf(pizzaMenuList.get(position).getPizzaDiscount()));
+
+        double pizzaPrice = pizzaMenuList.get(position).getPizzaPrice();
+        if (Double.isNaN(pizzaPrice)) {
+            holder.getTvProductPrice().setText("Price: N/A");
+        } else {
+            holder.getTvProductPrice().setText("Price: $" + String.valueOf(pizzaPrice));
+        }
+
+        double pizzaDiscount = pizzaMenuList.get(position).getPizzaDiscount();
+        if (Double.isNaN(pizzaDiscount)) {
+            holder.getTvProductDiscount().setText("Discount: N/A");
+        } else {
+            holder.getTvProductDiscount().setText("Discount: " + String.valueOf(pizzaDiscount));
+        }
     }
+
 
     @Override
     public int getItemCount() {

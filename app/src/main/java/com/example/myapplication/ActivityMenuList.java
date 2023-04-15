@@ -24,8 +24,6 @@ import java.util.Map;
 public class ActivityMenuList extends AppCompatActivity {
 
     private static final String TAG = "ActivityMenuList";
-    protected RecyclerView pizzaMenuRecyclerView;
-    protected RecyclerView.LayoutManager pizzaMenuRecyclerViewLayoutManager;
 
     protected List<Product> pizzaMenuList;
 
@@ -36,12 +34,15 @@ public class ActivityMenuList extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_menu_list);
 
-        pizzaMenuRecyclerView = findViewById(R.id.pizza_menu_recycler_view);
-        pizzaMenuRecyclerViewLayoutManager = new LinearLayoutManager(this);
-
         db = FirebaseFirestore.getInstance();
-
         retrievePizzaMenuFromFirestore();
+    }
+
+    private void onFirebaseDataRetrieved(){
+        getSupportFragmentManager()
+                .beginTransaction()
+                .replace(R.id.main_fragment_container, MenuListFragment.newInstance((ArrayList<Product>) pizzaMenuList))
+                .commit();
     }
 
     private void retrievePizzaMenuFromFirestore() {
@@ -75,9 +76,7 @@ public class ActivityMenuList extends AppCompatActivity {
                         pizza.setPizzaDiscount(pizzaDiscount);
                         pizzaMenuList.add(pizza);
                     }
-                    PizzaMenuAdapter adapter = new PizzaMenuAdapter(pizzaMenuList);
-                    pizzaMenuRecyclerView.setAdapter(adapter);
-                    pizzaMenuRecyclerView.setLayoutManager(pizzaMenuRecyclerViewLayoutManager);
+                    onFirebaseDataRetrieved();
                 } else {
                     Log.d(TAG, "Error getting documents: ", task.getException());
                     Toast.makeText(ActivityMenuList.this, "Error retrieving pizza menu data", Toast.LENGTH_SHORT).show();

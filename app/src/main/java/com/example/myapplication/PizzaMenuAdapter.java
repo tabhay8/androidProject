@@ -33,14 +33,14 @@ public class PizzaMenuAdapter extends RecyclerView.Adapter<PizzaMenuAdapter.View
         if (Double.isNaN(pizzaPrice)) {
             holder.getTvProductPrice().setText("Price: N/A");
         } else {
-            holder.getTvProductPrice().setText("Price: $" + String.valueOf(pizzaPrice));
+            holder.getTvProductPrice().setText("Price: $" + pizzaPrice);
         }
 
         double pizzaDiscount = pizzaMenuList.get(position).getPizzaDiscount();
         if (Double.isNaN(pizzaDiscount)) {
             holder.getTvProductDiscount().setText("Discount: N/A");
         } else {
-            holder.getTvProductDiscount().setText("Discount: " + String.valueOf(pizzaDiscount));
+            holder.getTvProductDiscount().setText("Discount: " + pizzaDiscount);
         }
     }
 

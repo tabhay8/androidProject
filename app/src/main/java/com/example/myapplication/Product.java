@@ -7,6 +7,12 @@ public class Product implements Serializable {
     private double pizzaPrice;
     private double pizzaDiscount;
 
+    public Product(String pizzaName, double pizzaPrice, double pizzaDiscount) {
+        this.pizzaName = pizzaName;
+        this.pizzaPrice = pizzaPrice;
+        this.pizzaDiscount = pizzaDiscount;
+    }
+
     public String getPizzaName() {
         return pizzaName;
     }

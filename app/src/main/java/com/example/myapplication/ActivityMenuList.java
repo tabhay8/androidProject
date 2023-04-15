@@ -69,7 +69,10 @@ public class ActivityMenuList extends AppCompatActivity {
                             pizzaDiscount = ((Number) discountObj).doubleValue();
                         }
 
-                        Product pizza = new Product(pizzaName, pizzaPrice, pizzaDiscount);
+                        Product pizza = new Product();
+                        pizza.setPizzaName(pizzaName);
+                        pizza.setPizzaPrice(pizzaPrice);
+                        pizza.setPizzaDiscount(pizzaDiscount);
                         pizzaMenuList.add(pizza);
                     }
                     PizzaMenuAdapter adapter = new PizzaMenuAdapter(pizzaMenuList);

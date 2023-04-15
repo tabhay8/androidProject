@@ -29,6 +29,10 @@ public class Product implements Parcelable {
         }
     };
 
+    public Product() {
+
+    }
+
     public String getPizzaName() {
         return pizzaName;
     }

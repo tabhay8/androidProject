@@ -1,17 +1,33 @@
 package com.example.myapplication;
 
-import java.io.Serializable;
+import android.os.Parcel;
+import android.os.Parcelable;
 
-public class Product implements Serializable {
+import androidx.annotation.NonNull;
+
+public class Product implements Parcelable {
     private String pizzaName;
     private double pizzaPrice;
     private double pizzaDiscount;
 
-    public Product(String pizzaName, double pizzaPrice, double pizzaDiscount) {
-        this.pizzaName = pizzaName;
-        this.pizzaPrice = pizzaPrice;
-        this.pizzaDiscount = pizzaDiscount;
+    protected Product(Parcel in) {
+        pizzaName = in.readString();
+        pizzaPrice = in.readDouble();
+        pizzaDiscount = in.readDouble();
     }
+
+    public static final Parcelable.Creator<Product> CREATOR = new Parcelable.Creator<Product>(){
+
+        @Override
+        public Product createFromParcel(Parcel parcel) {
+            return new Product(parcel);
+        }
+
+        @Override
+        public Product[] newArray(int i) {
+            return new Product[i];
+        }
+    };
 
     public String getPizzaName() {
         return pizzaName;
@@ -35,5 +51,17 @@ public class Product implements Serializable {
 
     public void setPizzaDiscount(double pizzaDiscount) {
         this.pizzaDiscount = pizzaDiscount;
+    }
+
+    @Override
+    public int describeContents() {
+        return 0;
+    }
+
+    @Override
+    public void writeToParcel(@NonNull Parcel parcel, int i) {
+        parcel.writeString(pizzaName);
+        parcel.writeDouble(pizzaPrice);
+        parcel.writeDouble(pizzaDiscount);
     }
 }

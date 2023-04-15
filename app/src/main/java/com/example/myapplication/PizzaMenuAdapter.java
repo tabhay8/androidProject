@@ -6,6 +6,8 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.cardview.widget.CardView;
 import androidx.recyclerview.widget.RecyclerView;
 
 import java.util.List;
@@ -13,6 +15,7 @@ import java.util.List;
 public class PizzaMenuAdapter extends RecyclerView.Adapter<PizzaMenuAdapter.ViewHolder> {
 
     private List<Product> pizzaMenuList;
+    private OnPizzaItemClickListener onPizzaItemClickListener;
 
     public PizzaMenuAdapter(List<Product> pizzaMenuList){
         this.pizzaMenuList = pizzaMenuList;
@@ -42,6 +45,10 @@ public class PizzaMenuAdapter extends RecyclerView.Adapter<PizzaMenuAdapter.View
         } else {
             holder.getTvProductDiscount().setText("Discount: " + pizzaDiscount);
         }
+
+        holder.getCvProductView().setOnClickListener(view -> {
+            onPizzaItemClickListener.onPizzaItemIsClicked(position);
+        });
     }
 
 
@@ -54,10 +61,15 @@ public class PizzaMenuAdapter extends RecyclerView.Adapter<PizzaMenuAdapter.View
         this.pizzaMenuList = pizzaMenuList;
     }
 
+    public void setOnPizzaItemClickListener(OnPizzaItemClickListener listener) {
+        this.onPizzaItemClickListener = listener;
+    }
+
     public static class ViewHolder extends RecyclerView.ViewHolder {
         private final TextView tvProductName;
         private final TextView tvProductPrice;
         private final TextView tvProductDiscount;
+        private final CardView cvProductView;
 
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
@@ -65,7 +77,10 @@ public class PizzaMenuAdapter extends RecyclerView.Adapter<PizzaMenuAdapter.View
             tvProductName = (TextView) itemView.findViewById(R.id.tvProductName);
             tvProductPrice = (TextView) itemView.findViewById(R.id.tvProductPrice);
             tvProductDiscount = (TextView) itemView.findViewById(R.id.tvProductDiscount);
+            cvProductView = (CardView) itemView.findViewById(R.id.cvProduct1);
         }
+
+        public CardView getCvProductView() { return cvProductView; }
 
         public TextView getTvProductName() {
             return tvProductName;
@@ -78,5 +93,9 @@ public class PizzaMenuAdapter extends RecyclerView.Adapter<PizzaMenuAdapter.View
         public TextView getTvProductDiscount() {
             return tvProductDiscount;
         }
+    }
+
+    public interface OnPizzaItemClickListener{
+        void onPizzaItemIsClicked(int position);
     }
 }

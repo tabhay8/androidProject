@@ -3,9 +3,11 @@ package com.example.myapplication;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -18,7 +20,7 @@ import java.util.List;
  * Use the {@link MenuListFragment#newInstance} factory method to
  * create an instance of this fragment.
  */
-public class MenuListFragment extends Fragment {
+public class MenuListFragment extends Fragment implements PizzaMenuAdapter.OnPizzaItemClickListener {
     public static final String TAG = "MenuListFragment";
 
     private static final String ARG_PIZZA_LIST = "ARG_PIZZA_LIST";
@@ -54,9 +56,22 @@ public class MenuListFragment extends Fragment {
         pizzaMenuRecyclerView.setHasFixedSize(true);
         pizzaMenuRecyclerViewLayoutManager = new LinearLayoutManager(view.getContext());
         pizzaMenuRecyclerView.setLayoutManager(pizzaMenuRecyclerViewLayoutManager);
-        pizzaMenuRecyclerView.setAdapter(new PizzaMenuAdapter(pizzaMenuList));
+        PizzaMenuAdapter adapter = new PizzaMenuAdapter(pizzaMenuList);
+        adapter.setOnPizzaItemClickListener(this);
+        pizzaMenuRecyclerView.setAdapter(adapter);
 
         // Inflate the layout for this fragment
         return view;
+    }
+
+    @Override
+    public void onPizzaItemIsClicked(int position) {
+        // open pizza detail fragment
+        Log.i(TAG, "A pizza was clicked: " + pizzaMenuList.get(position).getPizzaName());
+        FragmentManager manager = getParentFragmentManager();
+        manager.beginTransaction()
+                .add(R.id.main_fragment_container, PizzaDetailFragment.newInstance(pizzaMenuList.get(position)))
+                .addToBackStack(null)
+                .commit();
     }
 }

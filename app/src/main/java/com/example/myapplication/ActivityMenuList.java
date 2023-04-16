@@ -55,37 +55,34 @@ public class ActivityMenuList extends AppCompatActivity {
 
         CollectionReference pizzaMenuRef = db.collection("pizza_menu");
 
-        pizzaMenuRef.get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
-            @Override
-            public void onComplete(Task<QuerySnapshot> task) {
-                if (task.isSuccessful()) {
-                    for (DocumentSnapshot document : task.getResult()) {
-                        Map<String, Object> data = document.getData();
-                        String pizzaName = (String) data.get("pizzaName");
-                        double pizzaPrice = 0.0;
-                        double pizzaDiscount = 0.0;
+        pizzaMenuRef.get().addOnCompleteListener(task -> {
+            if (task.isSuccessful()) {
+                for (DocumentSnapshot document : task.getResult()) {
+                    Map<String, Object> data = document.getData();
+                    String pizzaName = (String) data.get("pizzaName");
+                    double pizzaPrice = 0.0;
+                    double pizzaDiscount = 0.0;
 
-                        Object priceObj = data.get("pizzaPrice");
-                        if (priceObj != null) {
-                            pizzaPrice = ((Number) priceObj).doubleValue();
-                        }
-
-                        Object discountObj = data.get("pizzaDiscount");
-                        if (discountObj != null) {
-                            pizzaDiscount = ((Number) discountObj).doubleValue();
-                        }
-
-                        Product pizza = new Product();
-                        pizza.setPizzaName(pizzaName);
-                        pizza.setPizzaPrice(pizzaPrice);
-                        pizza.setPizzaDiscount(pizzaDiscount);
-                        pizzaMenuList.add(pizza);
+                    Object priceObj = data.get("pizzaPrice");
+                    if (priceObj != null) {
+                        pizzaPrice = ((Number) priceObj).doubleValue();
                     }
-                    onFirebaseDataRetrieved();
-                } else {
-                    Log.d(TAG, "Error getting documents: ", task.getException());
-                    Toast.makeText(ActivityMenuList.this, "Error retrieving pizza menu data", Toast.LENGTH_SHORT).show();
+
+                    Object discountObj = data.get("pizzaDiscount");
+                    if (discountObj != null) {
+                        pizzaDiscount = ((Number) discountObj).doubleValue();
+                    }
+
+                    Product pizza = new Product();
+                    pizza.setPizzaName(pizzaName);
+                    pizza.setPizzaPrice(pizzaPrice);
+                    pizza.setPizzaDiscount(pizzaDiscount);
+                    pizzaMenuList.add(pizza);
                 }
+                onFirebaseDataRetrieved();
+            } else {
+                Log.d(TAG, "Error getting documents: ", task.getException());
+                Toast.makeText(ActivityMenuList.this, "Error retrieving pizza menu data", Toast.LENGTH_SHORT).show();
             }
         });
     }

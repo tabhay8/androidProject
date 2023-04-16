@@ -6,6 +6,9 @@ import android.os.Parcelable;
 import androidx.annotation.NonNull;
 
 public class Product implements Parcelable {
+
+
+    private String imageURL;
     private String pizzaName;
     private double pizzaPrice;
     private double pizzaDiscount;
@@ -14,6 +17,7 @@ public class Product implements Parcelable {
         pizzaName = in.readString();
         pizzaPrice = in.readDouble();
         pizzaDiscount = in.readDouble();
+        imageURL = in.readString();
     }
 
     public static final Parcelable.Creator<Product> CREATOR = new Parcelable.Creator<Product>(){
@@ -57,6 +61,14 @@ public class Product implements Parcelable {
         this.pizzaDiscount = pizzaDiscount;
     }
 
+    public String getImageURL() {
+        return imageURL;
+    }
+
+    public void setImageURL(String imageURL) {
+        this.imageURL = imageURL;
+    }
+
     @Override
     public int describeContents() {
         return 0;
@@ -67,5 +79,6 @@ public class Product implements Parcelable {
         parcel.writeString(pizzaName);
         parcel.writeDouble(pizzaPrice);
         parcel.writeDouble(pizzaDiscount);
+        parcel.writeString(imageURL);
     }
 }

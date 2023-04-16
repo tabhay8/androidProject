@@ -13,6 +13,8 @@ import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.bumptech.glide.Glide;
+
 public class PizzaDetailFragment extends Fragment {
 
     private static final String ARG_PIZZA_DETAIL = "ARG_PIZZA_DETAIL";
@@ -55,9 +57,9 @@ public class PizzaDetailFragment extends Fragment {
         tvProductDiscount = (TextView) view.findViewById(R.id.tvProductDetailDiscount);
         tvProductPrice = (TextView) view.findViewById(R.id.tvProductDetailPrice);
         btnAddToCart = (Button) view.findViewById(R.id.btnAddToCart);
+        ivProductImage =  (ImageView) view.findViewById(R.id.ivProductImage);
 
         // TODO: 15-04-2023 Set values dynamically for following views.
-        ivProductImage =  (ImageView) view.findViewById(R.id.ivProductImage);
         tvProductDescriptionLine1 = (TextView) view.findViewById(R.id.tvProductDescriptionPara1);
         tvProductDescriptionLine2 = (TextView) view.findViewById(R.id.tvProductDescriptionPara2);
         // END
@@ -68,6 +70,11 @@ public class PizzaDetailFragment extends Fragment {
         btnAddToCart.setOnClickListener(view1 -> {
             Log.i(TAG, "onCreateView: Add to Cart button clicked.");
         });
+        Glide.with(view)
+                .load(pizza.getImageURL())
+                .error(R.drawable.pizza_2)
+                .into(ivProductImage);
+
         // Inflate the layout for this fragment
         return view;
     }

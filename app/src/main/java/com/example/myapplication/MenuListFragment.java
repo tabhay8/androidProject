@@ -56,7 +56,7 @@ public class MenuListFragment extends Fragment implements PizzaMenuAdapter.OnPiz
         pizzaMenuRecyclerView.setHasFixedSize(true);
         pizzaMenuRecyclerViewLayoutManager = new LinearLayoutManager(view.getContext());
         pizzaMenuRecyclerView.setLayoutManager(pizzaMenuRecyclerViewLayoutManager);
-        PizzaMenuAdapter adapter = new PizzaMenuAdapter(pizzaMenuList);
+        PizzaMenuAdapter adapter = new PizzaMenuAdapter(view.getContext(), pizzaMenuList);
         adapter.setOnPizzaItemClickListener(this);
         pizzaMenuRecyclerView.setAdapter(adapter);
 

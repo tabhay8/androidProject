@@ -60,6 +60,8 @@ public class ActivityMenuList extends AppCompatActivity {
                 for (DocumentSnapshot document : task.getResult()) {
                     Map<String, Object> data = document.getData();
                     String pizzaName = (String) data.get("pizzaName");
+                    String imageUrl = (String) data.get("imageUrl");
+
                     double pizzaPrice = 0.0;
                     double pizzaDiscount = 0.0;
 
@@ -77,6 +79,7 @@ public class ActivityMenuList extends AppCompatActivity {
                     pizza.setPizzaName(pizzaName);
                     pizza.setPizzaPrice(pizzaPrice);
                     pizza.setPizzaDiscount(pizzaDiscount);
+                    pizza.setImageURL(imageUrl);
                     pizzaMenuList.add(pizza);
                 }
                 onFirebaseDataRetrieved();

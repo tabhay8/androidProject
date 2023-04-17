@@ -13,11 +13,17 @@ public class Product implements Parcelable {
     private double pizzaPrice;
     private double pizzaDiscount;
 
+    private String description;
+
+    private String ingredients;
+
     protected Product(Parcel in) {
         pizzaName = in.readString();
         pizzaPrice = in.readDouble();
         pizzaDiscount = in.readDouble();
         imageURL = in.readString();
+        description = in.readString();
+        ingredients = in.readString();
     }
 
     public static final Parcelable.Creator<Product> CREATOR = new Parcelable.Creator<Product>(){
@@ -68,6 +74,21 @@ public class Product implements Parcelable {
     public void setImageURL(String imageURL) {
         this.imageURL = imageURL;
     }
+    public String getDescription() {
+        return description;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
+    }
+
+    public String getIngredients() {
+        return ingredients;
+    }
+
+    public void setIngredients(String ingredients) {
+        this.ingredients = ingredients;
+    }
 
     @Override
     public int describeContents() {
@@ -80,5 +101,7 @@ public class Product implements Parcelable {
         parcel.writeDouble(pizzaPrice);
         parcel.writeDouble(pizzaDiscount);
         parcel.writeString(imageURL);
+        parcel.writeString(description);
+        parcel.writeString(ingredients);
     }
 }

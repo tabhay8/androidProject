@@ -93,6 +93,7 @@ public class PizzaMenuAdapter extends RecyclerView.Adapter<PizzaMenuAdapter.View
             tvProductDiscount = (TextView) itemView.findViewById(R.id.tvProductDiscount);
             cvProductView = (CardView) itemView.findViewById(R.id.cvProduct1);
             ivPizzaListImage = (ImageView) itemView.findViewById(R.id.ivProductImage);
+
         }
 
         public CardView getCvProductView() { return cvProductView; }

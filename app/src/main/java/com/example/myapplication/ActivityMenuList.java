@@ -1,6 +1,5 @@
 package com.example.myapplication;
 
-import android.content.DialogInterface;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.Menu;
@@ -11,7 +10,6 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
-import androidx.fragment.app.FragmentManager;
 
 import com.google.firebase.firestore.CollectionReference;
 import com.google.firebase.firestore.DocumentSnapshot;
@@ -24,6 +22,7 @@ import java.util.Map;
 public class ActivityMenuList extends AppCompatActivity implements PizzaDetailFragment.Callback, CartItemsFragment.Callback, CheckoutFragment.Callback {
 
     private static final String TAG = "ActivityMenuList";
+    private static final int MAX_ORDER_SIZE = 20;
 
     protected List<Product> pizzaMenuList;
 
@@ -125,12 +124,22 @@ public class ActivityMenuList extends AppCompatActivity implements PizzaDetailFr
     @Override
     public void onAddToCartClicked(Product pizza) {
         Log.i(TAG, "onAddToCartClicked: Add to cart tapped.");
-        if (productsInCart.contains(pizza)) {
-            int cartQuantity = pizza.getCartQuantity();
-            pizza.setCartQuantity(cartQuantity + 1);
+
+        int countOrderSize = 0;
+        for (Product pizzaType : productsInCart) {
+            countOrderSize += pizzaType.getCartQuantity();
+        }
+        if (countOrderSize < MAX_ORDER_SIZE) {
+            if (productsInCart.contains(pizza)) {
+                int cartQuantity = pizza.getCartQuantity();
+                pizza.setCartQuantity(cartQuantity + 1);
+            } else {
+                pizza.setCartQuantity(1);
+                productsInCart.add(pizza);
+            }
         } else {
-            pizza.setCartQuantity(1);
-            productsInCart.add(pizza);
+            String msg = "Maximum order size of " + MAX_ORDER_SIZE + " is reached.";
+            Toast.makeText(this, msg, Toast.LENGTH_SHORT).show();
         }
         Log.i(TAG, "onAddToCartClicked: Pizza Name: " + pizza.getPizzaName() + ", Cart Quantity: " + pizza.getCartQuantity());
     }
@@ -142,8 +151,7 @@ public class ActivityMenuList extends AppCompatActivity implements PizzaDetailFr
         int newItemQuantity = originalItemQuantity - 1;
         pizza.setCartQuantity(newItemQuantity);
         if (newItemQuantity <= 0) {
-            int position = productsInCart.indexOf(pizza);
-            productsInCart.remove(position);
+            productsInCart.remove(pizza);
         }
         Log.i(TAG, "onAddToCartClicked: Pizza Name: " + pizza.getPizzaName() + ", Cart Quantity: " + pizza.getCartQuantity());
     }

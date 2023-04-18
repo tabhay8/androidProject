@@ -26,14 +26,17 @@ public class ActivityMenuList extends AppCompatActivity implements PizzaDetailFr
 
     private FirebaseFirestore db;
     private Toolbar mainToolbar;
+    private List<Product> productsInCart;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_menu_list);
 
-        mainToolbar = (Toolbar) findViewById(R.id.my_toolbar);
+        mainToolbar = findViewById(R.id.my_toolbar);
         setSupportActionBar(mainToolbar);
+
+        productsInCart = new ArrayList<>();
 
         db = FirebaseFirestore.getInstance();
         retrievePizzaMenuFromFirestore();
@@ -108,5 +111,13 @@ public class ActivityMenuList extends AppCompatActivity implements PizzaDetailFr
     @Override
     public void onAddToCartClicked(Product pizza) {
         Log.i(TAG, "onAddToCartClicked: Add to cart tapped.");
+        if (productsInCart.contains(pizza)) {
+            int cartQuantity = pizza.getCartQuantity();
+            pizza.setCartQuantity(cartQuantity + 1);
+        } else {
+            pizza.setCartQuantity(1);
+            productsInCart.add(pizza);
+        }
+        Log.i(TAG, "onAddToCartClicked: Pizza Name: " + pizza.getPizzaName() + ", Cart Quantity: " + pizza.getCartQuantity());
     }
 }

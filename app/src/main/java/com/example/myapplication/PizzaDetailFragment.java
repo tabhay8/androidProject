@@ -1,16 +1,16 @@
 package com.example.myapplication;
 
+import android.content.Context;
 import android.os.Bundle;
-
-import androidx.fragment.app.Fragment;
-
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
+
+import androidx.annotation.NonNull;
+import androidx.fragment.app.Fragment;
 
 import com.bumptech.glide.Glide;
 
@@ -26,6 +26,7 @@ public class PizzaDetailFragment extends Fragment {
     private TextView tvProductPrice;
     private Button btnAddToCart;
     private ImageView ivProductImage;
+    private Callback callback;
 
     public PizzaDetailFragment() {
         // Required empty public constructor
@@ -52,15 +53,15 @@ public class PizzaDetailFragment extends Fragment {
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_pizza_detail, container, false);
 
-        tvPizzaName = (TextView) view.findViewById(R.id.tvProductDetailName);
-        tvProductDiscount = (TextView) view.findViewById(R.id.tvProductDetailDiscount);
-        tvProductPrice = (TextView) view.findViewById(R.id.tvProductDetailPrice);
-        btnAddToCart = (Button) view.findViewById(R.id.btnAddToCart);
-        ivProductImage =  (ImageView) view.findViewById(R.id.ivProductImage);
+        tvPizzaName = view.findViewById(R.id.tvProductDetailName);
+        tvProductDiscount = view.findViewById(R.id.tvProductDetailDiscount);
+        tvProductPrice = view.findViewById(R.id.tvProductDetailPrice);
+        btnAddToCart = view.findViewById(R.id.btnAddToCart);
+        ivProductImage = view.findViewById(R.id.ivProductImage);
 
         // TODO: 15-04-2023 Set values dynamically for following views.
-        tvProductDescriptionLine1 = (TextView) view.findViewById(R.id.tvProductDescriptionPara1);
-        tvProductDescriptionLine2 = (TextView) view.findViewById(R.id.tvProductDescriptionPara2);
+        tvProductDescriptionLine1 = view.findViewById(R.id.tvProductDescriptionPara1);
+        tvProductDescriptionLine2 = view.findViewById(R.id.tvProductDescriptionPara2);
         // END
 
         tvPizzaName.setText(pizza.getPizzaName());
@@ -68,9 +69,7 @@ public class PizzaDetailFragment extends Fragment {
         tvProductPrice.setText("Price: $" + pizza.getPizzaPrice());
         tvProductDescriptionLine1.setText(pizza.getDescription());
         tvProductDescriptionLine2.setText(pizza.getIngredients());
-        btnAddToCart.setOnClickListener(view1 -> {
-            Log.i(TAG, "onCreateView: Add to Cart button clicked.");
-        });
+        btnAddToCart.setOnClickListener(view1 -> callback.onAddToCartClicked(pizza));
         Glide.with(view)
                 .load(pizza.getImageURL())
                 .error(R.drawable.pizza_2)
@@ -78,5 +77,25 @@ public class PizzaDetailFragment extends Fragment {
 
         // Inflate the layout for this fragment
         return view;
+    }
+
+    interface Callback {
+        void onAddToCartClicked(Product pizza);
+    }
+
+    @Override
+    public void onAttach(@NonNull Context context) {
+        super.onAttach(context);
+        if (context instanceof Callback){
+            callback = (Callback) context;
+        }else {
+            throw new RuntimeException(context + " must implement `PizzaDetailFragment.Callback`");
+        }
+    }
+
+    @Override
+    public void onDetach() {
+        super.onDetach();
+        callback = null;
     }
 }

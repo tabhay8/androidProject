@@ -18,7 +18,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
-public class ActivityMenuList extends AppCompatActivity {
+public class ActivityMenuList extends AppCompatActivity implements PizzaDetailFragment.Callback {
 
     private static final String TAG = "ActivityMenuList";
 
@@ -103,5 +103,10 @@ public class ActivityMenuList extends AppCompatActivity {
             return true;
         }
         return super.onOptionsItemSelected(item);
+    }
+
+    @Override
+    public void onAddToCartClicked(Product pizza) {
+        Log.i(TAG, "onAddToCartClicked: Add to cart tapped.");
     }
 }

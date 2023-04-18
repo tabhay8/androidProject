@@ -68,7 +68,7 @@
                     android:layout_margin="10dp"
                     android:ems="8"
                     android:hint="Street Name"
-                    android:inputType="textPersonName"
+                    android:inputType="textPostalAddress"
                     android:minHeight="48dp" />
 
                 <EditText
@@ -78,7 +78,7 @@
                     android:layout_margin="10dp"
                     android:ems="8"
                     android:hint="Zip Code"
-                    android:inputType="textPersonName"
+                    android:inputType="text"
                     android:minHeight="48dp" />
 
 
@@ -89,7 +89,7 @@
                     android:layout_margin="10dp"
                     android:ems="8"
                     android:hint="Phone Number"
-                    android:inputType="number"
+                    android:inputType="phone"
                     android:minHeight="48dp" />
 
             </LinearLayout>
@@ -163,7 +163,7 @@
                     android:layout_margin="10dp"
                     android:ems="8"
                     android:hint="CVC"
-                    android:inputType="number"
+                    android:inputType="numberPassword"
                     android:minHeight="48dp" />
 
 

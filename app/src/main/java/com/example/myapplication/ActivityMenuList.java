@@ -1,5 +1,6 @@
 package com.example.myapplication;
 
+import android.content.DialogInterface;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.Menu;
@@ -7,8 +8,10 @@ import android.view.MenuItem;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
+import androidx.fragment.app.FragmentManager;
 
 import com.google.firebase.firestore.CollectionReference;
 import com.google.firebase.firestore.DocumentSnapshot;
@@ -18,7 +21,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
-public class ActivityMenuList extends AppCompatActivity implements PizzaDetailFragment.Callback, CartItemsFragment.Callback {
+public class ActivityMenuList extends AppCompatActivity implements PizzaDetailFragment.Callback, CartItemsFragment.Callback, CheckoutFragment.Callback {
 
     private static final String TAG = "ActivityMenuList";
 
@@ -29,6 +32,7 @@ public class ActivityMenuList extends AppCompatActivity implements PizzaDetailFr
     private List<Product> productsInCart;
     private MenuListFragment menuListFragment;
     private CartItemsFragment cartItemsFragment;
+    private CheckoutFragment checkoutFragment;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -144,4 +148,38 @@ public class ActivityMenuList extends AppCompatActivity implements PizzaDetailFr
         Log.i(TAG, "onAddToCartClicked: Pizza Name: " + pizza.getPizzaName() + ", Cart Quantity: " + pizza.getCartQuantity());
     }
 
+    @Override
+    public void onCheckoutButtonPressed() {
+        if (productsInCart.size() > 0){
+            checkoutFragment = CheckoutFragment.newInstance();
+            getSupportFragmentManager().beginTransaction()
+                    .addToBackStack(null)
+                    .replace(R.id.main_fragment_container, checkoutFragment)
+                    .commit();
+        } else {
+            Toast.makeText(this, "No items added to the cart.", Toast.LENGTH_LONG)
+                    .show();
+        }
+    }
+
+    @Override
+    public void onOrderPlaced() {
+        Log.i(TAG, "onOrderPlaced: Order place button is pressed.");
+
+//        FragmentManager fragmentManager = getSupportFragmentManager();
+//        fragmentManager.beginTransaction().remove(checkoutFragment).commit();
+//        fragmentManager.beginTransaction().replace(R.id.main_fragment_container, menuListFragment).commit();
+
+        productsInCart = new ArrayList<>();
+
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        builder.setTitle("Order Placed!");
+        builder.setMessage("Your order has been placed. Thank you for your purchase!");
+        builder.setPositiveButton("OK", (dialog, which) -> {
+            dialog.dismiss();
+            finish();
+        });
+        AlertDialog dialog = builder.create();
+        dialog.show();
+    }
 }

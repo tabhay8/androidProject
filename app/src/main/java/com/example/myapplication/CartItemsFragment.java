@@ -6,6 +6,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -24,6 +25,7 @@ public class CartItemsFragment extends Fragment implements CartItemAdapter.Remov
     private List<Product> cartItems;
     private Callback callback;
     private CartItemAdapter adapter;
+    private Button checkoutButton;
 
     public CartItemsFragment() {}
 
@@ -47,6 +49,9 @@ public class CartItemsFragment extends Fragment implements CartItemAdapter.Remov
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_cart_items, container, false);
+
+        checkoutButton = view.findViewById(R.id.checkout_button);
+        checkoutButton.setOnClickListener(view1 -> callback.onCheckoutButtonPressed());
 
         cartItemsRecyclerView = view.findViewById(R.id.cart_items_recycler_view);
         cartItemsRecyclerView.setHasFixedSize(false);
@@ -84,5 +89,7 @@ public class CartItemsFragment extends Fragment implements CartItemAdapter.Remov
 
     interface Callback {
         void onCartItemRemovePressed(Product pizza);
+
+        void onCheckoutButtonPressed();
     }
 }

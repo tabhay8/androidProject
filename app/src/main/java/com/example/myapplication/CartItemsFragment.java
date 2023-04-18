@@ -26,6 +26,7 @@ public class CartItemsFragment extends Fragment implements CartItemAdapter.Remov
     private Callback callback;
     private CartItemAdapter adapter;
     private Button checkoutButton;
+    private double orderTotal;
 
     public CartItemsFragment() {}
 
@@ -62,6 +63,9 @@ public class CartItemsFragment extends Fragment implements CartItemAdapter.Remov
         adapter.setRemoveButtonListener(this);
         cartItemsRecyclerView.setAdapter(adapter);
 
+        orderTotal = getCartItemTotal(cartItems);
+        checkoutButton.setText("CHECKOUT: $ " + orderTotal);
+
         return view;
     }
 
@@ -85,11 +89,27 @@ public class CartItemsFragment extends Fragment implements CartItemAdapter.Remov
     public void onRemoveButtonClicked(Product pizza) {
         callback.onCartItemRemovePressed(pizza);
         adapter.notifyDataSetChanged();
+
+        orderTotal = getCartItemTotal(cartItems);
+        checkoutButton.setText(String.format("CHECKOUT: $ %.2f", orderTotal));
     }
 
     interface Callback {
         void onCartItemRemovePressed(Product pizza);
 
         void onCheckoutButtonPressed();
+    }
+
+    public double getCartItemTotal(List<Product> cartItems) {
+        double totalPrice = 0;
+        for (Product pizza : cartItems) {
+            double price = pizza.getPizzaPrice();
+            int quantity = pizza.getCartQuantity();
+            double discount = pizza.getPizzaDiscount();
+            double discountedPrice = price - price * discount / 100;
+            totalPrice += discountedPrice * quantity;
+            Log.i(TAG, "getCartItemTotal: price: " + price + ", quantity: " + quantity + ", discount: " + discount + ", discountPrice: " + discountedPrice + ", totalPrice: " + totalPrice);
+        }
+        return totalPrice;
     }
 }

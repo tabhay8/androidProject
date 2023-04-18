@@ -65,14 +65,14 @@ public class MenuListFragment extends Fragment implements PizzaMenuAdapter.OnPiz
         pizzaMenuRecyclerView.setLayoutManager(pizzaMenuRecyclerViewLayoutManager);
 
         // Hide the ActionBar
-        ActionBar actionBar = ((AppCompatActivity) getActivity()).getSupportActionBar();
-        if (actionBar != null) {
-            actionBar.hide();
-        }
+//        ActionBar actionBar = ((AppCompatActivity) getActivity()).getSupportActionBar();
+//        if (actionBar != null) {
+//            actionBar.hide();
+//        }
 
         // Set the Window fullscreen
-        requireActivity().getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,
-                WindowManager.LayoutParams.FLAG_FULLSCREEN);
+//        requireActivity().getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,
+//                WindowManager.LayoutParams.FLAG_FULLSCREEN);
 
 
         // Define a new divider drawable

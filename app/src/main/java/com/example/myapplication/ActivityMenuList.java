@@ -18,7 +18,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
-public class ActivityMenuList extends AppCompatActivity implements PizzaDetailFragment.Callback {
+public class ActivityMenuList extends AppCompatActivity implements PizzaDetailFragment.Callback, CartItemsFragment.Callback {
 
     private static final String TAG = "ActivityMenuList";
 
@@ -27,6 +27,8 @@ public class ActivityMenuList extends AppCompatActivity implements PizzaDetailFr
     private FirebaseFirestore db;
     private Toolbar mainToolbar;
     private List<Product> productsInCart;
+    private MenuListFragment menuListFragment;
+    private CartItemsFragment cartItemsFragment;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -43,9 +45,10 @@ public class ActivityMenuList extends AppCompatActivity implements PizzaDetailFr
     }
 
     private void onFirebaseDataRetrieved(){
+        menuListFragment = MenuListFragment.newInstance((ArrayList<Product>) pizzaMenuList);
         getSupportFragmentManager()
                 .beginTransaction()
-                .replace(R.id.main_fragment_container, MenuListFragment.newInstance((ArrayList<Product>) pizzaMenuList))
+                .replace(R.id.main_fragment_container, menuListFragment)
                 .commit();
     }
 
@@ -101,8 +104,15 @@ public class ActivityMenuList extends AppCompatActivity implements PizzaDetailFr
 
     @Override
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
+        Log.i(TAG, "onOptionsItemSelected: called.");
+        cartItemsFragment = CartItemsFragment.newInstance((ArrayList<Product>) productsInCart);
         if (item.getItemId() == R.id.action_cart) {
-            Log.i(TAG, "onOptionsItemSelected: Cart icon selected.");
+            Log.i(TAG, "onOptionsItemSelected: Cart icon is pressed.");
+            getSupportFragmentManager()
+                    .beginTransaction()
+                    .addToBackStack(null)
+                    .replace(R.id.main_fragment_container, cartItemsFragment)
+                    .commit();
             return true;
         }
         return super.onOptionsItemSelected(item);
@@ -120,4 +130,18 @@ public class ActivityMenuList extends AppCompatActivity implements PizzaDetailFr
         }
         Log.i(TAG, "onAddToCartClicked: Pizza Name: " + pizza.getPizzaName() + ", Cart Quantity: " + pizza.getCartQuantity());
     }
+
+    @Override
+    public void onCartItemRemovePressed(Product pizza) {
+        Log.i(TAG, "onCartItemRemovePressed: The item remove button is pressed.");
+        int originalItemQuantity = pizza.getCartQuantity();
+        int newItemQuantity = originalItemQuantity - 1;
+        pizza.setCartQuantity(newItemQuantity);
+        if (newItemQuantity <= 0) {
+            int position = productsInCart.indexOf(pizza);
+            productsInCart.remove(position);
+        }
+        Log.i(TAG, "onAddToCartClicked: Pizza Name: " + pizza.getPizzaName() + ", Cart Quantity: " + pizza.getCartQuantity());
+    }
+
 }

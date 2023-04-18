@@ -6,17 +6,10 @@ import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
-import androidx.recyclerview.widget.LinearLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
 
-import com.example.myapplication.PizzaMenuAdapter;
-import com.example.myapplication.Product;
-import com.google.android.gms.tasks.OnCompleteListener;
-import com.google.android.gms.tasks.Task;
 import com.google.firebase.firestore.CollectionReference;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
-import com.google.firebase.firestore.QuerySnapshot;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -61,6 +54,8 @@ public class ActivityMenuList extends AppCompatActivity {
                     Map<String, Object> data = document.getData();
                     String pizzaName = (String) data.get("pizzaName");
                     String imageUrl = (String) data.get("imageUrl");
+                    String description = (String)  data.get("description");
+                    String ingredients = (String)  data.get("ingredients");
 
                     double pizzaPrice = 0.0;
                     double pizzaDiscount = 0.0;
@@ -80,6 +75,8 @@ public class ActivityMenuList extends AppCompatActivity {
                     pizza.setPizzaPrice(pizzaPrice);
                     pizza.setPizzaDiscount(pizzaDiscount);
                     pizza.setImageURL(imageUrl);
+                    pizza.setDescription(description);
+                    pizza.setIngredients(ingredients);
                     pizzaMenuList.add(pizza);
                 }
                 onFirebaseDataRetrieved();

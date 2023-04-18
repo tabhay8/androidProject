@@ -1,6 +1,5 @@
 package com.example.myapplication;
 
-import android.annotation.SuppressLint;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
@@ -65,8 +64,10 @@ public class PizzaDetailFragment extends Fragment {
         // END
 
         tvPizzaName.setText(pizza.getPizzaName());
-        tvProductDiscount.setText("Discount: " + pizza.getPizzaDiscount()*10 + "%");
+        tvProductDiscount.setText("Discount: " + pizza.getPizzaDiscount() + "%");
         tvProductPrice.setText("Price: $" + pizza.getPizzaPrice());
+        tvProductDescriptionLine1.setText(pizza.getDescription());
+        tvProductDescriptionLine2.setText(pizza.getIngredients());
         btnAddToCart.setOnClickListener(view1 -> {
             Log.i(TAG, "onCreateView: Add to Cart button clicked.");
         });

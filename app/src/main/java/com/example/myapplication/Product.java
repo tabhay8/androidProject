@@ -12,6 +12,7 @@ public class Product implements Parcelable {
     private String pizzaName;
     private double pizzaPrice;
     private double pizzaDiscount;
+    private int cartQuantity;
 
     private String description;
 
@@ -24,6 +25,7 @@ public class Product implements Parcelable {
         imageURL = in.readString();
         description = in.readString();
         ingredients = in.readString();
+        cartQuantity = in.readInt();
     }
 
     public static final Parcelable.Creator<Product> CREATOR = new Parcelable.Creator<Product>(){
@@ -103,5 +105,13 @@ public class Product implements Parcelable {
         parcel.writeString(imageURL);
         parcel.writeString(description);
         parcel.writeString(ingredients);
+    }
+
+    public int getCartQuantity() {
+        return cartQuantity;
+    }
+
+    public void setCartQuantity(int cartQuantity) {
+        this.cartQuantity = cartQuantity;
     }
 }

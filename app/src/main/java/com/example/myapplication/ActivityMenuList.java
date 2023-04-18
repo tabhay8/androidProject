@@ -2,8 +2,11 @@ package com.example.myapplication;
 
 import android.os.Bundle;
 import android.util.Log;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.widget.Toast;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 
@@ -15,7 +18,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
-public class ActivityMenuList extends AppCompatActivity {
+public class ActivityMenuList extends AppCompatActivity implements PizzaDetailFragment.Callback {
 
     private static final String TAG = "ActivityMenuList";
 
@@ -23,14 +26,17 @@ public class ActivityMenuList extends AppCompatActivity {
 
     private FirebaseFirestore db;
     private Toolbar mainToolbar;
+    private List<Product> productsInCart;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_menu_list);
 
-        mainToolbar = (Toolbar) findViewById(R.id.my_toolbar);
+        mainToolbar = findViewById(R.id.my_toolbar);
         setSupportActionBar(mainToolbar);
+
+        productsInCart = new ArrayList<>();
 
         db = FirebaseFirestore.getInstance();
         retrievePizzaMenuFromFirestore();
@@ -87,5 +93,31 @@ public class ActivityMenuList extends AppCompatActivity {
         });
     }
 
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.action_bar_menu, menu);
+        return super.onCreateOptionsMenu(menu);
+    }
 
+    @Override
+    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
+        if (item.getItemId() == R.id.action_cart) {
+            Log.i(TAG, "onOptionsItemSelected: Cart icon selected.");
+            return true;
+        }
+        return super.onOptionsItemSelected(item);
+    }
+
+    @Override
+    public void onAddToCartClicked(Product pizza) {
+        Log.i(TAG, "onAddToCartClicked: Add to cart tapped.");
+        if (productsInCart.contains(pizza)) {
+            int cartQuantity = pizza.getCartQuantity();
+            pizza.setCartQuantity(cartQuantity + 1);
+        } else {
+            pizza.setCartQuantity(1);
+            productsInCart.add(pizza);
+        }
+        Log.i(TAG, "onAddToCartClicked: Pizza Name: " + pizza.getPizzaName() + ", Cart Quantity: " + pizza.getCartQuantity());
+    }
 }

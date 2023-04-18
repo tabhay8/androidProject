@@ -4,35 +4,38 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#712323"
+    android:background="@drawable/h4"
     tools:context=".MainActivity">
+
 
     <TextView
         android:id="@+id/tv_appName"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="386dp"
+        android:layout_height="176dp"
+        android:fontFamily="@font/myfont"
+        android:gravity="center"
         android:text="@string/lacucina_pizza"
-        android:textColor="#ffffff"
-        android:textSize="29sp"
+        android:textColor="@color/white"
+        android:textSize="50sp"
         android:textStyle="bold"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.497"
+        app:layout_constraintHorizontal_bias="0.48"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.53" />
+        app:layout_constraintVertical_bias="0.255" />
 
     <ImageView
         android:id="@+id/ivLogo"
-        android:layout_width="178dp"
-        android:layout_height="157dp"
+        android:layout_width="187dp"
+        android:layout_height="142dp"
         android:contentDescription="@string/todo"
         app:layout_constraintBottom_toTopOf="@+id/tv_appName"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.497"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="1.0"
+        app:layout_constraintVertical_bias="0.0"
         app:srcCompat="@drawable/pizza_logo" />
 
     <Button
@@ -44,10 +47,9 @@
         app:iconTint="#911B1B"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.519"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/tv_appName"
-        app:layout_constraintVertical_bias="0.057" />
+        app:layout_constraintVertical_bias="0.617" />
 
     <Button
         android:id="@+id/btnViewOrders"

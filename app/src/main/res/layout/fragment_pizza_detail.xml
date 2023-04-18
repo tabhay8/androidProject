@@ -3,7 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#712323">
+    android:background="@drawable/hb_blur">
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -37,7 +37,7 @@
                     android:layout_margin="15dp"
                     android:gravity="center"
                     android:text="Sicilian Pizza"
-                    android:textColor="#ffff"
+                    android:textColor="#ffffff"
                     android:textSize="25sp"
                     android:textStyle="bold" />
 
@@ -58,25 +58,34 @@
 
             <TextView
                 android:id="@+id/tvProductDescriptionPara1"
-                android:layout_width="366dp"
-                android:layout_height="101dp"
+                android:layout_width="wrap_content"
+                android:layout_height="102dp"
                 android:layout_margin="15dp"
                 android:layout_marginTop="-15sp"
                 android:text="Pizza dough (type 0 or 00 tender wheat flour, Natural yeast, sour dough or brewer's yeast, sea salt, water), tomatoes (San Marzano or Pomodorino del Piennolo del Vesuvio), mozzarella (bufala Campana or fior di latte di agerola)"
-                android:textColor="#ffff"
-                android:textSize="15sp"
+                android:textColor="#ffffff"
+                android:textSize="18sp"
                 android:textStyle="normal" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Ingredients:"
+                android:textColor="#ffffff"
+                android:textSize="25sp"
+                android:textStyle="bold"
+                android:layout_margin="15dp"/>
 
 
             <TextView
                 android:id="@+id/tvProductDescriptionPara2"
-                android:layout_width="343dp"
-                android:layout_height="57dp"
+                android:layout_width="377dp"
+                android:layout_height="wrap_content"
                 android:layout_margin="15dp"
                 android:layout_marginTop="0sp"
                 android:text="Variations:	\n1.Pizza marinara,\n2.Pizza Margherita"
                 android:textColor="#ffff"
-                android:textSize="15sp"
+                android:textSize="18sp"
                 android:textStyle="normal" />
 
             <androidx.cardview.widget.CardView

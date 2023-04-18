@@ -1,9 +1,14 @@
 package com.example.myapplication;
 
+import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 
+import androidx.appcompat.app.ActionBar;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
+import androidx.recyclerview.widget.DividerItemDecoration;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -11,6 +16,8 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+
+import android.view.WindowManager;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -56,6 +63,28 @@ public class MenuListFragment extends Fragment implements PizzaMenuAdapter.OnPiz
         pizzaMenuRecyclerView.setHasFixedSize(true);
         pizzaMenuRecyclerViewLayoutManager = new LinearLayoutManager(view.getContext());
         pizzaMenuRecyclerView.setLayoutManager(pizzaMenuRecyclerViewLayoutManager);
+
+        // Hide the ActionBar
+        ActionBar actionBar = ((AppCompatActivity) getActivity()).getSupportActionBar();
+        if (actionBar != null) {
+            actionBar.hide();
+        }
+
+        // Set the Window fullscreen
+        requireActivity().getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,
+                WindowManager.LayoutParams.FLAG_FULLSCREEN);
+
+
+        // Define a new divider drawable
+        Drawable dividerDrawable = ContextCompat.getDrawable(view.getContext(), R.drawable.recycler_view_divider);
+
+        // Create a new DividerItemDecoration with the divider drawable
+        DividerItemDecoration dividerItemDecoration = new DividerItemDecoration(view.getContext(), DividerItemDecoration.VERTICAL);
+        dividerItemDecoration.setDrawable(dividerDrawable);
+
+        // Add the divider to your RecyclerView
+        pizzaMenuRecyclerView.addItemDecoration(dividerItemDecoration);
+
         PizzaMenuAdapter adapter = new PizzaMenuAdapter(view.getContext(), pizzaMenuList);
         adapter.setOnPizzaItemClickListener(this);
         pizzaMenuRecyclerView.setAdapter(adapter);
@@ -63,6 +92,7 @@ public class MenuListFragment extends Fragment implements PizzaMenuAdapter.OnPiz
         // Inflate the layout for this fragment
         return view;
     }
+
 
     @Override
     public void onPizzaItemIsClicked(int position) {
@@ -74,4 +104,5 @@ public class MenuListFragment extends Fragment implements PizzaMenuAdapter.OnPiz
                 .addToBackStack(null)
                 .commit();
     }
+
 }
